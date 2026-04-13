@@ -18,7 +18,6 @@ export default function HomePage() {
 				<SpendingByCategoryItems />
                 </div>
             </div>
-      	<SignOut />
         </main>
     )
 }

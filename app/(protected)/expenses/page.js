@@ -93,7 +93,6 @@ export default function ExpensePage() {
                 <ExpenseList expenses={expenses} onExpenseDelete={handleDeleteExpense} />
                 </div>
             </div>
-            <SignOut />
         </main>
     )
 }
