@@ -50,7 +50,7 @@ export default function Home() {
                             onChange={(e) => setEmail(e.target.value)}
                             className={`${inputStyle} text-gray-800 bg-[#b8c49f]`}
                             />
-                            <input
+                        <input
                             type="password"
                             placeholder="Password"
                             value={password}

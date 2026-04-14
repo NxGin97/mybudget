@@ -51,14 +51,6 @@ export const AuthContextProvider = ({children}) => {
         return() => unsubscribe();  
     }, [] );
 
-    //Firebase user object:
-    // {
-    //   displayName: "Natalie",
-    //   email: "natalie@example.com",
-    //   uid: "abc123",
-    //   photoURL: "https://...",
-    //     }
-    
     return (
         <AuthContext.Provider value = {{ user, loading, gitHubSignIn, facebookSignIn, googleSignIn, emailSignIn, emailSignUp, firebaseSignOut }}>
             {children}

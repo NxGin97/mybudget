@@ -6,7 +6,6 @@ import { useUserAuth } from "@/contexts/authContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-
 export default function LoginPage() {
     const { user} = useUserAuth(); 
     const router = useRouter();
@@ -17,9 +16,9 @@ export default function LoginPage() {
         }
     }, [user, router]);
 
-  return (
+return (
     <main className="bg-[#c9d1c2] min-h-screen">
         <LoginForm />;
     </main>
-  )
+    )
 }

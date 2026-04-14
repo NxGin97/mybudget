@@ -14,12 +14,9 @@ export default function SpendingByCategoryItems({ category }) {
 
     let adjustedLimit = limit;
 
-	if (type === "percent") {
-		adjustedLimit = (limit / 100) * monthlyIncome;
-	}
+	if (type === "percent") {adjustedLimit = (limit / 100) * monthlyIncome;}
 
 	const percentage = adjustedLimit > 0 ? (spent / adjustedLimit) * 100 : 0;
-
     let borderColor = "border-[#636B2F]/70"; 
 
     if (percentage >= 100) {
@@ -28,21 +25,13 @@ export default function SpendingByCategoryItems({ category }) {
             borderColor = "border-[#eda807]/70";
     }
 
-        return (
-        <div className={`${borderColor} flex flex-col py-5 bg-white rounded-lg border-2 m-5 relative`}>
-            <div className="bg-white absolute top-4 right-4 w-3 h-3 rounded-full" />
-
-            <div className="flex flex-row justify-between">
-                <p className="font-bold text-2xl text-gray-700 my-auto ml-10 capitalize">
-                    {category.categoryName}
-                </p>
-
-                <p className="text-2xl text-gray-700 my-auto mr-13">
-                    ${spent.toFixed(2)}
-                </p>
-            </div>
-
-            <ProgressBar spent={spent} limit={limit} type={type}/>
+    return (
+    <div className={`${borderColor} flex flex-col py-5 bg-white rounded-lg border-2 m-5 relative`}>
+        <div className="flex flex-row justify-between">
+            <p className="font-bold text-2xl text-gray-700 my-auto ml-10 capitalize">{category.categoryName}</p>
+            <p className="text-2xl text-gray-700 my-auto mr-13">${spent.toFixed(2)}</p>
         </div>
-    )
+        <ProgressBar spent={spent} limit={limit} type={type}/>
+    </div>
+)
 }

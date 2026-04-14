@@ -15,7 +15,7 @@ export default function ProgressBar({ spent, limit, type }) {
 	}
 
 	const percentage = adjustedLimit > 0 ? (spent / adjustedLimit) * 100 : 0;
-  	const clamped = Math.min(Math.max(percentage, 0), 100);
+	const clamped = Math.min(Math.max(percentage, 0), 100);
 
 	let color = "bg-[#3a6b2f]"; 
 	let baseColor = "bg-[#afc9a9]"

@@ -51,18 +51,18 @@ export default function NewExpense({ onAddExpense, categories=[] }) {
             <DivLine />
             <label htmlFor="description" className={labelStyle}>Description </label> 
                 <input type="text" name="description" id="description" value={expense.description} 
-                onChange={handleChange} 
-                required 
-                placeholder="e.g Takeout" 
-                className={inputStyle}>
+                    onChange={handleChange} 
+                    required 
+                    placeholder="e.g Takeout" 
+                    className={inputStyle}>
                 </input>
                 <div>
                     <label htmlFor="amount" className={labelStyle}>Amount</label>
                         <input type="number" name="amount" id="amount" step="0.01" value={expense.amount}
-                        onChange={handleChange}  
-                        required
-                        placeholder="e.g 100"
-                        className={`${inputStyle} dark:text-gray-800`}>
+                            onChange={handleChange}  
+                            required
+                            placeholder="e.g 100"
+                            className={`${inputStyle} dark:text-gray-800`}>
                         </input>
                 </div>
                 <div>

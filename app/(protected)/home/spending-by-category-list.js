@@ -1,34 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { useUserAuth } from "@/contexts/authContext"
-import { onSnapshot, collection } from "firebase/firestore"
 import SpendingByCategoryItems from "./spending-list-items"
-import { db } from "@/utils/firebase"
+import useUserFinanceData from "@/app/hooks/useFinanceData"
 
 export default function SpendingByCategoryList() {
-    const {user} = useUserAuth();
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-        if (!user) return;
-
-    const categoriesRef = collection(db, "budgetUsers", user.uid, "categoryTotals");
-
-    const unsubscribe = onSnapshot(categoriesRef, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      setCategories(data);
-    });
-
-    return () => unsubscribe();
-  }, [user]);
-
-
-    const sectionStyle="w-full rounded-md ";
+    const { user } = useUserAuth();
+    const { categories } = useUserFinanceData(user);
 
     if(!categories.length) {
         return (
@@ -38,11 +16,10 @@ export default function SpendingByCategoryList() {
         )
     }
 
-
     return (
-        <section className={`${sectionStyle}`}>
+        <section className="w-full rounded-md">
             <div>
-                {categories.map((cat) => (<SpendingByCategoryItems key={cat.id} category={cat} />))}
+                {categories.map((cat) => (<SpendingByCategoryItems key={cat.categoryName} category={cat} />))}
             </div>
         </section>
     )

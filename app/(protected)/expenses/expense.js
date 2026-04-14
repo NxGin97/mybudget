@@ -1,5 +1,3 @@
-
-
 export default function Expense({id, description, amount, category, createdAt, onDelete})
 {
     const pStyle = "text-[#1d2e0f] capitalize";

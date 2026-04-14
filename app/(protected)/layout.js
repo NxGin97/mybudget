@@ -23,6 +23,5 @@ export default function ProtectedLayout({children}) {
     }
 
     if(!user) return null;
-
     return<> {children}</>
 }

@@ -5,7 +5,7 @@ import useUserFinanceData from "@/app/hooks/useFinanceData";
 
 export default function HomeSummary() {
 
-    const {user} = useUserAuth();
+    const { user } = useUserAuth();
     const { expenses, monthlyIncome } = useUserFinanceData(user);
 
     const spending = expenses.reduce((sum, expense) => {

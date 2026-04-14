@@ -40,18 +40,18 @@ const handleSubmit = (e) => {
             <DivLine />
             <label htmlFor="description" className="text-gray-700 font-semibold">Description </label> 
                 <input type="text" name="description" id="description" value={income.description} 
-                onChange={handleChange} 
-                required 
-                placeholder="e.g Paycheque" 
-                className={inputStyle}>
+                    onChange={handleChange} 
+                    required 
+                    placeholder="e.g Paycheque" 
+                    className={inputStyle}>
                 </input>
                 <div>
                     <label htmlFor="amount" className="text-gray-700 font-semibold">Amount</label>
                         <input type="number" name="amount" id="amount" step="0.01" value={income.amount}
-                        onChange={handleChange}  
-                        required
-                        placeholder="e.g 1000"
-                        className={`${inputStyle} dark:text-gray-800`}>
+                            onChange={handleChange}  
+                            required
+                            placeholder="e.g 1000"
+                            className={`${inputStyle} dark:text-gray-800`}>
                         </input>
                 </div>
                 <div>

@@ -1,17 +1,6 @@
 import Category from "./category"
-import { useUserAuth } from "@/contexts/authContext";
-import useUserFinanceData from "@/app/hooks/useFinanceData";
 
 export default function CategoryList({categories=[], onCategoryDelete}) {
-
-    const {user} = useUserAuth();
-    const { expenses, monthlyIncome } = useUserFinanceData(user);
-
-    const spending = expenses.reduce((sum, expense) => {
-        return sum + (Number(expense.amount) || 0);} , 0)
-
-    const remaining = monthlyIncome - spending;
-
     const sectionStyle="w-full rounded-md p-4 bg-white border-2 border-[#636B2F]/80 h-[15%]";
     const labelStyle="text-gray-700 font-semibold" 
     

@@ -1,8 +1,7 @@
 
 
 import { db } from "@/utils/firebase";
-import {collection, doc, getDocs, getDoc, setDoc, addDoc, increment, query, 
-    where, writeBatch } from "firebase/firestore";
+import {collection, doc, getDocs, getDoc, setDoc, addDoc, increment, query, where, writeBatch } from "firebase/firestore";
 
 export async function addExpense(userId, expense) {
     try {
@@ -32,7 +31,6 @@ export async function addExpense(userId, expense) {
         return null;
     }
 }
-
 
 export async function addCategory(userId, category) {
     try {
@@ -83,7 +81,6 @@ export async function removeExpense(userId, expense) {
         console.error("Error removing item ", error);
         return false;
     }
-
 }
 
     export async function removeCategory(userId, categoryName) {
@@ -125,7 +122,7 @@ export async function removeExpense(userId, expense) {
     } catch (error) {
         console.error("Error getting categories:", error);
         return [];
-    }
+        }
     }
 
     export async function getCurrentMonthSpending(userId) {
@@ -140,5 +137,5 @@ export async function removeExpense(userId, expense) {
     } catch (error) {
         console.error("Error getting monthly spending:", error);
         return 0;
-    }
+        }
     }

@@ -3,7 +3,6 @@ import {collection, doc, getDocs, getDoc, setDoc, addDoc, increment, writeBatch,
 
 export async function addIncome(userId, income) {
   try {
-    // Add Income
     const docRef = await addDoc(collection(db, "budgetUsers", userId, "incomes"), {...income, createdAt: serverTimestamp()});
 
     const currentMonth = new Date();
@@ -43,28 +42,6 @@ export async function removeIncome(userId, income) {
 			return false;
 		}
 }
-
-
-// export async function getIncome(userId) {
-//   const income = [];
-
-//   try {
-//     const snapshot = await getDocs(collection(db, "budgetUsers", userId, "incomes"));
-
-//     snapshot.forEach((doc) => {
-//       income.push({
-//         id: doc.id,
-//         ...doc.data(),
-//         createdAt: doc.data().createdAt || null,
-//       });
-//     });
-
-//     return income;
-//   } catch (error) {
-//     console.error("Error getting income:", error);
-//     return [];
-//   }
-// }
 
 export async function getCurrentMonthIncome(userId) {
   try {

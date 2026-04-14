@@ -1,6 +1,5 @@
 "use client"
 
-import SignOut from "@/components/SignOutButton"
 import NavHeader from "@/components/NavHeader"
 
 import NewExpense from "./new-expense"
@@ -8,51 +7,14 @@ import ExpenseList from "./expense-list"
 import NewCategory from "./new-category"
 import CategoryList from "./category-list"
 
-import { useState, useEffect } from "react"
-import { useUserAuth } from "@/contexts/authContext"
 
-import { db } from "@/utils/firebase"
+import { useUserAuth } from "@/contexts/authContext"
 import { addExpense, removeExpense, addCategory, removeCategory} from "@/services/expense-list-service";
-import { collection, onSnapshot } from "firebase/firestore";
+import useUserFinanceData from "@/app/hooks/useFinanceData"
 
 export default function ExpensePage() {
-
-    const [expenses, setExpenses] = useState([]);
-    const [categories, setCategories] = useState([]);
-
     const { user, loading } = useUserAuth();
-
-    //Load expenses and categories
-    useEffect(() => {
-      if (!user) return;
-
-      const unsubExpenses = onSnapshot(
-        collection(db, "budgetUsers", user.uid, "expenses"),
-        (snapshot) => {
-          const data = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setExpenses(data);
-        }
-      );
-
-      const unsubCategory = onSnapshot(
-        collection(db, "budgetUsers", user.uid, "categoryTotals"),
-        (snapshot) => {
-          const data = snapshot.docs.map((doc) => ({
-            categoryName: doc.id,
-            ...doc.data(),
-          }));
-          setCategories(data);
-        }
-      );
-
-      return () => {
-        unsubExpenses();
-        unsubCategory();
-      };
-    }, [user]);
+    const { expenses, categories } = useUserFinanceData(user);
 
       if(loading || !user) 
         return (
@@ -70,15 +32,11 @@ export default function ExpensePage() {
 
   async function handleDeleteExpense(expense) {
     await removeExpense(user.uid, expense);
-
-    setExpenses((prev) =>
-    prev.filter((e) => e.id !== expense.id));
   }
 
   async function handleDeleteCategory(categoryName) {
     await removeCategory(user.uid, categoryName);
   }
-
 
     return (
         <main className="bg-[#c9d1c2] min-h-screen pt-16">

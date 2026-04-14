@@ -1,12 +1,9 @@
 "use client"
 import NavHeader from "@/components/NavHeader"
 import HomeSummary from "./home-summary"
-import SpendingByCategoryItems from "./spending-list-items"
 import SpendingByCategoryList from "./spending-by-category-list"
 
 export default function HomePage() {
-
-
     return (
         <main className="bg-[#c9d1c2] min-h-screen pt-16">
             <NavHeader />

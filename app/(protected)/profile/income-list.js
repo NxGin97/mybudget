@@ -8,13 +8,13 @@ export default function IncomeList({incomes, onIncomeDelete}) {
 
     const containerStyle="w-2/3 bg-white border-2 border-[#636B2F]/80 mt-4 rounded-md"
 
-    if (!incomes || incomes.length === 0) {
-        return (
-            <section className={`${containerStyle} py-6 h-[10%]`}> 
-                <p className="font-bold text-center text-gray-700">No Income Yet</p>
-            </section>
-        )
-    }
+		if (!incomes || incomes.length === 0) {
+			return (
+				<section className={`${containerStyle} py-6 h-[10%]`}> 
+					<p className="font-bold text-center text-gray-700">No Income Yet</p>
+				</section>
+			)
+		}
 
     return(
         <section className={`${containerStyle}`}>

@@ -2,16 +2,13 @@
 
 import SignOut from "@/components/SignOutButton"
 import NavHeader from "@/components/NavHeader"
-import TotalSaved from "./total-saved"
 
-import { useEffect, useState } from "react"
-import { useUserAuth } from "@/contexts/authContext"
+import TotalSaved from "./total-saved"
 import ThisMonthIncome from "./this-month-income"
 import NewIncome from "./new-income"
 import IncomeList from "./income-list"
 
-import { collection, onSnapshot, doc } from "firebase/firestore";
-import { db } from "@/utils/firebase"
+import { useUserAuth } from "@/contexts/authContext"
 import { addIncome, removeIncome} from "@/services/income-list-service"
 import useUserFinanceData from "@/app/hooks/useFinanceData"
 
