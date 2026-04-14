@@ -1,19 +1,28 @@
 "use client"
 
 import { serverTimestamp } from "firebase/firestore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DivLine from "@/components/DivLine";
 
 export default function NewExpense({ onAddExpense, categories=[] }) {
-
     const [expense, setExpense] = useState({
         description: "",
-        amount: 1,
-        category: "Others",
+        amount: "",
+        category: "",
     })
+    
+    useEffect(() => {
+    if (categories.length > 0 && !expense.category) {
+        setExpense((prev) => ({
+        ...prev,
+        category: categories[0].categoryName,
+        }));
+    }
+    }, [categories]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!expense.category) return;
         const newExpense = {
             ...expense, 
             amount: parseFloat(expense.amount || 0),
@@ -21,7 +30,7 @@ export default function NewExpense({ onAddExpense, categories=[] }) {
 
         onAddExpense(newExpense); 
 
-        const intitialState = {description: "", amount: 0.00, category: "Others"}
+        const intitialState = {description: "", amount: "", category: categories[0]?.categoryName || "",}
         setExpense(intitialState);
         }
 
@@ -52,8 +61,8 @@ export default function NewExpense({ onAddExpense, categories=[] }) {
                         <input type="number" name="amount" id="amount" step="0.01" value={expense.amount}
                         onChange={handleChange}  
                         required
+                        placeholder="e.g 100"
                         className={`${inputStyle} dark:text-gray-800`}>
-                        
                         </input>
                 </div>
                 <div>

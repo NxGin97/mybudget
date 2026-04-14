@@ -12,59 +12,12 @@ import IncomeList from "./income-list"
 
 import { collection, onSnapshot, doc } from "firebase/firestore";
 import { db } from "@/utils/firebase"
-import { addIncome, getCurrentMonthIncome, removeIncome} from "@/services/income-list-service"
+import { addIncome, removeIncome} from "@/services/income-list-service"
+import useUserFinanceData from "@/app/hooks/useFinanceData"
 
 export default function ProfilePage() {
     const { user, loading } = useUserAuth();
-    const [expenses, setExpenses] = useState([]);
-    const [incomes, setIncomes] = useState([]);
-		const [monthlyIncome, setMonthlyIncome] = useState(0);
-
-useEffect(() => {
-  if (!user) return;
-
-  const unsubExpenses = onSnapshot(
-    collection(db, "budgetUsers", user.uid, "expenses"),
-    (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setExpenses(data);
-    }
-  );
-
-  const unsubIncomes = onSnapshot(
-    collection(db, "budgetUsers", user.uid, "incomes"),
-    (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setIncomes(data);
-    }
-  );
-
-  const currentMonth = new Date();
-  const key = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, "0")}`;
-
-  const monthlyRef = doc(db, "budgetUsers", user.uid, "incomeTotals", key);
-
-  const unsubMonthlyIncome = onSnapshot(monthlyRef, (snap) => {
-    if (snap.exists()) {
-      setMonthlyIncome(snap.data().totalAmount || 0);
-    } else {
-      setMonthlyIncome(0);
-    }
-  });
-
-  return () => {
-    unsubExpenses();
-    unsubIncomes();
-    unsubMonthlyIncome();
-  };
-}, [user]);
-
+    const { expenses, incomes, monthlyIncome } = useUserFinanceData(user);
 
 if(loading || !user) 
         return (
@@ -78,9 +31,6 @@ if(loading || !user)
 
 				async function handleDeleteIncome(income) {
 					await removeIncome(user.uid, income);
-			
-					setIncomes((prev) =>
-					prev.filter((e) => e.id !== income.id));
 				}
         
     return (

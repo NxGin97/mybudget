@@ -11,7 +11,7 @@ export default function IncomeList({incomes, onIncomeDelete}) {
     if (!incomes || incomes.length === 0) {
         return (
             <section className={`${containerStyle} py-6 h-[10%]`}> 
-                <p className="font-bold text-center text-gray-700">No Income yet</p>
+                <p className="font-bold text-center text-gray-700">No Income Yet</p>
             </section>
         )
     }

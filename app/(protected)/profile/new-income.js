@@ -8,7 +8,7 @@ export default function NewIncome({onAddIncome, incomes=[]} ) {
 
     const [income, setIncome] = useState({
         description: "",
-        amount: 1
+        amount: ""
     })
     
 const handleSubmit = (e) => {
@@ -20,7 +20,7 @@ const handleSubmit = (e) => {
 
         onAddIncome(newIncome); 
 
-        const intitialState = {description: "", amount: 0.00}
+        const intitialState = {description: "", amount: ""}
         setIncome(intitialState);
         }
 
@@ -32,10 +32,10 @@ const handleSubmit = (e) => {
                 }));
             };              
 
-        const inputStyle="w-full rounded-md p-2 border border-gray-400 bg-[#f2f5f0] my-2 opacity-80 h-10 text-gray-800 placeholder-gray-700 text-sm"
+        const inputStyle="w-full box-border rounded-md p-2 border-2 border-gray-400 bg-[#f2f5f0] my-2 opacity-80 h-10 text-gray-800 placeholder-gray-700 text-sm"
 
     return (
-        <form onSubmit={handleSubmit} className="w-full p-4 bg-white border-2 rounded-md border-[#636B2F]/80 pb-8">
+        <form onSubmit={handleSubmit} className="w-full max-w-md p-4 bg-white border-2 rounded-md border-[#636B2F]/80 pb-8">
             <p className="font-bold text-lg text-gray-700">New Income Entry</p>
             <DivLine />
             <label htmlFor="description" className="text-gray-700 font-semibold">Description </label> 
@@ -50,8 +50,8 @@ const handleSubmit = (e) => {
                         <input type="number" name="amount" id="amount" step="0.01" value={income.amount}
                         onChange={handleChange}  
                         required
+                        placeholder="e.g 1000"
                         className={`${inputStyle} dark:text-gray-800`}>
-                        
                         </input>
                 </div>
                 <div>

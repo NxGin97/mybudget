@@ -1,17 +1,48 @@
-"ise client"
+"use client"
+
 import ProgressBar from "@/components/ProgressBar"
+import useUserFinanceData from "@/app/hooks/useFinanceData";
+import { useUserAuth } from "@/contexts/authContext";
 
-export default function SpendingByCategoryItems({category, spent, limit}) {
-    //only spending by category list should be called in page, this is just to set up the design
+export default function SpendingByCategoryItems({ category }) {
+    const { user } = useUserAuth();
+    const { monthlyIncome } = useUserFinanceData(user);
+    
+    const spent = category.totalAmountSpent || 0;
+    const limit = category.budgetLimit || 0;
+    const type = category.type || "fixed";
 
-    return (
-            <div className= "flex flex-col py-5 bg-white h-[30%] rounded-lg border-2 border-[#636B2F]/70 m-5">
-                <div className="flex flex-row justify-between">
-                    <p className="font-bold text-2xl text-gray-700 my-auto ml-10">Category{category} </p>
-                    <p className="text-2xl text-gray-700 my-auto mr-10">$42.45{spent}</p>
-                </div>
-                <ProgressBar spent={42.445} limit={100}/>
-                {/* <ProgressBar spent={spent} limit={limit}/> */}
+    let adjustedLimit = limit;
+
+	if (type === "percent") {
+		adjustedLimit = (limit / 100) * monthlyIncome;
+	}
+
+	const percentage = adjustedLimit > 0 ? (spent / adjustedLimit) * 100 : 0;
+
+    let borderColor = "border-[#636B2F]/70"; 
+
+    if (percentage >= 100) {
+        borderColor = "border-[#c41414]/70";
+    } else if (percentage >= 80) {
+            borderColor = "border-[#eda807]/70";
+    }
+
+        return (
+        <div className={`${borderColor} flex flex-col py-5 bg-white rounded-lg border-2 m-5 relative`}>
+            <div className="bg-white absolute top-4 right-4 w-3 h-3 rounded-full" />
+
+            <div className="flex flex-row justify-between">
+                <p className="font-bold text-2xl text-gray-700 my-auto ml-10 capitalize">
+                    {category.categoryName}
+                </p>
+
+                <p className="text-2xl text-gray-700 my-auto mr-13">
+                    ${spent.toFixed(2)}
+                </p>
             </div>
+
+            <ProgressBar spent={spent} limit={limit} type={type}/>
+        </div>
     )
 }

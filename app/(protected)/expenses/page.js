@@ -85,7 +85,7 @@ export default function ExpensePage() {
             <NavHeader />
             <div className="flex justify-center mx-5">
                 <div className="w-[900px] my-10 flex gap-15">
-                    <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-5 w-[300px] shrink-0">
                         <NewExpense onAddExpense={handleAddExpense} categories={categories}/>
                         <NewCategory onAddCategory={handleAddCategory} categories={categories}/>
                         <CategoryList categories={categories} onCategoryDelete={handleDeleteCategory} />

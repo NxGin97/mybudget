@@ -4,10 +4,12 @@ import { useState } from "react";
 import { useUserAuth } from "@/contexts/authContext";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { getFirebaseErrorMessage } from "@/utils/firebaseErrors";
+import { useRouter } from "next/navigation";
 import BudgetLogo from "./BudgetLogo";
 
 export default function Home() {
     const { gitHubSignIn, googleSignIn, emailSignIn } = useUserAuth();
+    const router = useRouter();
 
     const [errorMessage, setErrorMessage] = useState("");
     const [email, setEmail] = useState("");
@@ -58,20 +60,21 @@ export default function Home() {
                             {errorMessage && (<p className="text-red-500 text-sm mb-2">{errorMessage}</p>)}
                         <button className={`${inputStyle} bg-[#60753e] opacity-100 text-gray-100 hover:opacity-80 active:opacity-60`} type="submit">Sign in</button>
                     </form> 
-                    <p className="text-center mb-3 text-gray-800"> or </p>
+                    <p className="text-center mb-3 text-gray-800 font-semibold"> or </p>
                     <div className={buttonStyle}>
                         <FaGithub className={iconStyle}/>
-                        <button  onClick={() => handleLogin(gitHubSignIn)} className="text-gray-800">Sign in with GitHub</button>
+                        <button  onClick={() => handleLogin(gitHubSignIn)} className="text-gray-800 font-semibold">Sign in with GitHub</button>
                     </div>
                     <div className={buttonStyle}>
                         <FaGoogle className={iconStyle}/>
-                        <button onClick={() => handleLogin(googleSignIn)} className="text-gray-800">Sign in with Google</button>
+                        <button onClick={() => handleLogin(googleSignIn)} className="text-gray-800 font-semibold">Sign in with Google</button>
                     </div>
                 </div>
-                <div className="flex flex-row justify-center gap-1 items-baseline">
+                <div className="flex flex-row justify-center gap-1 items-baseline font-semibold">
                     <p className="text-center text-sm mt-2 text-gray-800"> Don't have an account?</p>
                     <button
-                    className=" text-sm text-[#1d2e0f] underline hover:text-[#f2f5f0] hover:cursor-pointer">Sign up
+                    onClick={() => router.replace("/signup")}
+                    className="text-sm text-[#1d2e0f] text-[#1d61bf] underline hover:text-[#f2f5f0] hover:cursor-pointer">Sign up
                     </button>
                 </div>
             </div>
